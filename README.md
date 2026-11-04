@@ -38,6 +38,14 @@ On a phone, use the website link and install it as described above, because open
 
 If you use Git, you can run `git clone https://github.com/LakotaSioux77/phasmo-guide.git` instead of steps 1–4, then open `index.html` from that folder.
 
+**Want the ghost icon?** Installing the guide from the website link gives you the ghost icon automatically. A downloaded copy can't set its own icon, but on Windows you can add it to a desktop shortcut in a few clicks:
+
+1. Right-click `index.html`, choose **Show more options** if you see it, then **Send to** and **Desktop (create shortcut)**.
+2. On your desktop, right-click the new shortcut and choose **Properties**.
+3. Click **Change Icon**, then **Browse**, and select `ghost.ico` in the guide's folder. Click **Open**, **OK** and **OK**.
+
+Keep `ghost.ico` in that folder, as the shortcut needs it to keep showing the ghost. If you move the folder, you'll need to make the shortcut again.
+
 **Common mistakes**
 
 - **Opening `offline.html`:** it only shows a "You're offline" message, so always use `index.html`.
@@ -100,6 +108,7 @@ manifest.webmanifest  app name and icons for installing on a device
 .nojekyll             tells GitHub Pages to serve the files as they are
 css/app.css           all styles and theme colours
 icons/                app icons
+ghost.ico             optional icon for a Windows desktop shortcut (not needed by the website)
 js/                   the app's code
 js/data/              the game facts (see the table above)
 tests/engine.test.js  checks the rules, game data and site files (not needed by the website)
