@@ -3,26 +3,34 @@
    ========================================================================= */
 :root {
   --bg: #0b0d0c; --bg2: #101412; --panel: #141917; --panel2: #1a201d; --line: #26302b; --line2: #33403a;
-  --text: #e6ece8; --muted: #9aa8a0; --faint: #6c7a72;
+  --text: #e6ece8; --muted: #9aa8a0; --faint: #8d9b93;
   --green: #7fe0a3; --green-d: #3f8f63; --green-bg: rgba(127,224,163,.10); --glow: 0 0 0 1px rgba(127,224,163,.35), 0 0 18px rgba(127,224,163,.12);
   --red: #ef6b6b; --red-bg: rgba(239,107,107,.12); --amber: #e8b75a; --amber-bg: rgba(232,183,90,.12); --blue: #8ab4ff;
   --radius: 14px; --radius-s: 10px; --tap: 48px;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --safe-b: env(safe-area-inset-bottom, 0px); --safe-t: env(safe-area-inset-top, 0px);
-  --nav-h: 64px; --fs: 16px;
+  --nav-h: 64px; --fs: 16px; --grid: color-mix(in srgb, var(--line) 50%, transparent);
   color-scheme: dark;
 }
 :root[data-theme="light"] {
   --bg: #f3f5f4; --bg2: #e9eeeb; --panel: #ffffff; --panel2: #f4f7f5; --line: #d6ded9; --line2: #c3cec8;
-  --text: #13201a; --muted: #4c5c54; --faint: #6b7b73; --green: #1f7a4a; --green-d: #1f7a4a; --green-bg: rgba(31,122,74,.10);
-  --glow: 0 0 0 1px rgba(31,122,74,.35); --red: #c23b3b; --red-bg: rgba(194,59,59,.10); --amber: #94620a; --amber-bg: rgba(148,98,10,.10);
+  --text: #13201a; --muted: #4c5c54; --faint: #56665e; --green: #196b40; --green-d: #196b40; --green-bg: rgba(31,122,74,.10);
+  --glow: 0 0 0 1px rgba(31,122,74,.35); --red: #b83232; --red-bg: rgba(194,59,59,.10); --amber: #7d5208; --amber-bg: rgba(148,98,10,.10); --blue: #1d4fb8;
   color-scheme: light;
 }
 :root[data-contrast="high"] {
   --bg: #000; --bg2: #000; --panel: #000; --panel2: #0a0a0a; --line: #fff; --line2: #fff; --text: #fff; --muted: #fff; --faint: #e0e0e0;
-  --green: #5dff9b; --red: #ff6e6e; --amber: #ffd166; --glow: 0 0 0 2px #5dff9b;
+  --green: #5dff9b; --red: #ff6e6e; --amber: #ffd166; --glow: 0 0 0 2px #5dff9b; --grid: rgba(255,255,255,.14);
 }
+:root[data-theme="light"][data-contrast="high"] {
+  --bg: #fff; --bg2: #fff; --panel: #fff; --panel2: #f5f5f5; --line: #000; --line2: #000; --text: #000; --muted: #000; --faint: #1f1f1f;
+  --green: #004d26; --green-d: #004d26; --red: #a80000; --amber: #5c3a00; --blue: #0b3fb3; --glow: 0 0 0 2px #004d26; --grid: rgba(0,0,0,.12);
+}
+/* --green is dark in the light themes, so anything filled with it needs light text */
+:root[data-theme="light"] .btn.primary,
+:root[data-theme="light"] .obs.yes .st,
+:root[data-theme="light"] .marker .dot { color: #fff; }
 :root[data-size="large"] { --fs: 18px; }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -133,6 +141,10 @@ table.t th { color: var(--muted); font-weight: 650; font-size: .78rem; text-tran
 .seg { display: inline-flex; border: 1px solid var(--line2); border-radius: 12px; overflow: hidden; }
 .seg button { min-height: 40px; padding: 6px 14px; background: transparent; border: 0; color: var(--muted); font-weight: 650; }
 .seg button.on { background: var(--green-bg); color: var(--green); }
+.seg a.on { background: var(--green-bg); border-radius: 0; }
+/* A bar as well as colour, so the selected option doesn't rely on colour alone */
+.seg .on { box-shadow: inset 0 -3px 0 var(--green); }
+:root[data-theme="light"] .seg a.on .green { color: var(--text); }
 .empty { text-align: center; color: var(--muted); padding: 28px 12px; }
 
 /* ---------- Ghost cards ---------- */
@@ -241,8 +253,8 @@ textarea.notes { width: 100%; min-height: 90px; resize: vertical; padding: 10px;
 .mapcard { text-decoration: none; color: var(--text); }
 .layers { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
 .board-wrap { position: relative; border: 1px solid var(--line); border-radius: var(--radius); background:
-  repeating-linear-gradient(0deg, transparent 0 23px, color-mix(in srgb, var(--line) 50%, transparent) 23px 24px),
-  repeating-linear-gradient(90deg, transparent 0 23px, color-mix(in srgb, var(--line) 50%, transparent) 23px 24px), var(--bg2);
+  repeating-linear-gradient(0deg, transparent 0 23px, var(--grid) 23px 24px),
+  repeating-linear-gradient(90deg, transparent 0 23px, var(--grid) 23px 24px), var(--bg2);
   overflow: auto; height: min(68vh, 620px); touch-action: pan-x pan-y; -webkit-overflow-scrolling: touch; }
 .board { transform-origin: 0 0; padding: 14px; display: grid; gap: 14px; grid-auto-flow: column; grid-auto-columns: minmax(250px, 300px); width: max-content; }
 .level { border: 1px solid var(--line2); border-radius: 14px; background: color-mix(in srgb, var(--panel) 92%, transparent); padding: 10px; align-self: start; }

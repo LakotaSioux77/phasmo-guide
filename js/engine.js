@@ -109,7 +109,7 @@
     });
 
     const alive = results.filter(r => !r.excluded);
-    let most = [], still = [];
+    let most = [], still;
     if (positiveIds.length) {
       most = alive.filter(r => r.fitsAll).sort((a, b) => b.score - a.score);
       still = alive.filter(r => !r.fitsAll).sort((a, b) => b.score - a.score);

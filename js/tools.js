@@ -3,7 +3,7 @@
    ========================================================================= */
 (function (App) {
   "use strict";
-  const { esc, icon, sp } = App;
+  const { esc, icon } = App;
 
   /* ---------- SPEEDS ---------- */
   App.route(/^\/speeds$/, (m, q) => {
@@ -12,7 +12,7 @@
     const MAX = 4; const pos = v => (Math.min(v * App.speedPct() / 100, MAX) / MAX * 100).toFixed(1) + "%";
     return { title: "Speed chart", html: `
       <div class="page-head"><div><h1>Hunt speed comparison</h1><p>Bar = possible speed range · tick = base speed · <span class="amber">amber</span> = no line-of-sight speed-up. Scale 0–4 m/s; the faint line marks 1.7 m/s.</p></div>
-        <div class="seg">${[["base","Base"],["max","Fastest"],["name","A–Z"]].map(([k, l]) => `<a class="btn small ghost" style="border:0" href="#/speeds?sort=${k}"><span class="${sort === k ? "green" : "muted"}">${l}</span></a>`).join("")}</div></div>
+        <div class="seg">${[["base","Base"],["max","Fastest"],["name","A–Z"]].map(([k, l]) => `<a class="btn small ghost ${sort === k ? "on" : ""}" ${sort === k ? 'aria-current="true"' : ""} style="border:0" href="#/speeds?sort=${k}"><span class="${sort === k ? "green" : "muted"}">${l}</span></a>`).join("")}</div></div>
       ${App.speedPct() !== 100 ? `<div class="notice" style="margin-bottom:10px">Speeds scaled to ${App.speedPct()}% (custom difficulty setting).</div>` : ""}
       <div class="card">${list.map(g => `<a class="speedrow" href="#/ghost/${g.id}" title="${esc(g.speed.text)}"><span class="nm">${esc(g.name)}</span>
         <span class="track ${g.speed.los === "no" ? "nolos" : ""}"><span class="ref" style="left:${pos(1.7)}"></span><span class="rng" style="left:${pos(g.speed.min)};width:calc(${pos(g.speed.max)} - ${pos(g.speed.min)} + 8px)"></span><span class="base" style="left:${pos(g.speed.base)}"></span></span>
@@ -66,7 +66,6 @@
     } }));
 
   /* ---------- MAPS ---------- */
-  const order = { Small: 0, Medium: 1, Large: 2 };
   App.route(/^\/maps$/, () => {
     const groups = ["Small","Medium","Large"].map(s => [s, PD.maps.filter(m => m.size === s)]);
     return { title: "Maps", html: `
@@ -74,7 +73,7 @@
       ${groups.map(([s, list]) => `<h2 style="margin-top:14px">${s}</h2><div class="grid c3">${list.map(m => `<a class="gcard" href="#/map/${m.id}"><h3>${icon("map", 18)} ${esc(m.name)}</h3><div class="meta"><span>${esc(m.levels.length)} level${m.levels.length > 1 ? "s" : ""}</span><span>rooms: ${esc(m.rooms)}</span>${m.parent ? '<span class="amber">Restricted</span>' : ""}</div>${m.rework ? `<p class="small muted" style="margin:6px 0 0">${esc(m.rework)}</p>` : ""}</a>`).join("")}</div>`).join("")}` };
   });
 
-  App.route(/^\/map\/([\w-]+)$/, (m, q) => {
+  App.route(/^\/map\/([\w-]+)$/, (m) => {
     const mp = PD.maps.find(x => x.id === m[1]); if (!mp) return { html: '<div class="empty">Unknown map.</div>' };
     const layers = App.store.get("layers", { cursed: true, rooms: true, fuse: false, hide: false, exits: false });
     const rel = PD.maps.filter(x => x.parent === mp.id || x.id === mp.parent || (mp.parent && x.parent === mp.parent && x.id !== mp.id));

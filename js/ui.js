@@ -15,9 +15,9 @@ window.App = window.App || {};
 
   /* ---------- storage (never throws) ---------- */
   App.store = {
-    get(k, d) { try { const v = localStorage.getItem("pfg." + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
-    set(k, v) { try { localStorage.setItem("pfg." + k, JSON.stringify(v)); } catch (e) { /* private mode */ } },
-    del(k) { try { localStorage.removeItem("pfg." + k); } catch (e) {} }
+    get(k, d) { try { const v = localStorage.getItem("pfg." + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem("pfg." + k, JSON.stringify(v)); } catch { /* private mode */ } },
+    del(k) { try { localStorage.removeItem("pfg." + k); } catch { /* private mode */ } }
   };
 
   /* ---------- icons (original line icons) ---------- */

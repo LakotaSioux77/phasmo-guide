@@ -9,7 +9,7 @@ PD.meta = {
   gameVersion: "v0.19.1.0",
   gameVersionDate: "2026-10-07",
   lastVerified: "2026-11-02",
-  appVersion: "1.0.1",
+  appVersion: "1.0.2",
   note: "Unofficial fan-made companion. Not affiliated with or endorsed by Kinetic Games. Phasmophobia is a trademark of Kinetic Games."
 };
 
@@ -78,6 +78,12 @@ PD.sources = {
 
 /* App changelog — newest first. */
 PD.changelog = [
+  { version: "1.0.2", date: "2026-11-04", game: "v0.19.1.0",
+    items: [
+      "Easier to read: stronger text contrast in the normal themes, and a proper light version of high contrast (it used to turn the screen black).",
+      "Selected tabs and toggles now show a clear bar, the map grid is fainter in high contrast, and Settings labels sit above their toggles.",
+      "Code clean-up with no change to the game data, plus a fix for the \"Try the guide\" link on the offline page."
+    ] },
   { version: "1.0.1", date: "2026-11-02", game: "v0.19.1.0",
     items: [
       "Ouija Board costs updated to the July 2026 GameSpot list: 20% for location, bone, shyness, proximity and headcount questions; 5% for the rest (older 40–50% figures removed).",

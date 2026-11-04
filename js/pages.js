@@ -229,9 +229,9 @@
   App.route(/^\/settings$/, () => ({ title: "Settings", html: `
     <div class="page-head"><div><h1>Settings</h1><p>Saved on this device only.</p></div></div>
     <div class="card stack">
-      <div><b>Theme</b><div class="seg" style="margin-top:6px" data-set="theme"><button data-v="dark">Dark</button><button data-v="light">Light</button></div></div>
-      <div><b>High contrast</b><div class="seg" style="margin-top:6px" data-set="contrast"><button data-v="normal">Off</button><button data-v="high">On</button></div></div>
-      <div><b>Text size</b><div class="seg" style="margin-top:6px" data-set="size"><button data-v="normal">Normal</button><button data-v="large">Large</button></div></div>
+      <div><b style="display:block">Theme</b><div class="seg" style="margin-top:6px" data-set="theme"><button data-v="dark">Dark</button><button data-v="light">Light</button></div></div>
+      <div><b style="display:block">High contrast</b><div class="seg" style="margin-top:6px" data-set="contrast"><button data-v="normal">Off</button><button data-v="high">On</button></div></div>
+      <div><b style="display:block">Text size</b><div class="seg" style="margin-top:6px" data-set="size"><button data-v="normal">Normal</button><button data-v="large">Large</button></div></div>
       <div><b>Custom ghost speed</b> <span class="muted small">(custom difficulty — scales every speed shown in the app)</span>
         <div class="sanity-in" style="margin-top:6px"><input type="range" min="50" max="150" step="5" id="spd" value="${App.speedPct()}" aria-label="Ghost speed percent"><b class="mono" id="spdv">${App.speedPct()}%</b></div></div>
     </div>
